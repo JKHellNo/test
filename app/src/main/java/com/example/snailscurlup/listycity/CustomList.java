@@ -38,9 +38,9 @@ public class CustomList extends ArrayAdapter<User> {
 
 
         TextView image = view.findViewById(R.id.leader_image);
-        TextView Name = view.findViewById(R.id.name);
-        TextView score = view.findViewById(R.id.score);
-        TextView phoneNumber = view.findViewById(R.id.index);
+        TextView Name = view.findViewById(R.id.leader_name);
+        TextView score = view.findViewById(R.id.leader_score);
+        TextView phoneNumber = view.findViewById(R.id.leader_index);
 
 
         image.setText(user.getUsername());
