@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "637209657376",
+    "project_id": "catchqr-dce09",
+    "storage_bucket": "catchqr-dce09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637209657376:android:7cff165f13a31df3a97c45",
+        "android_client_info": {
+          "package_name": "com.example.simpleparadox.listycity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637209657376-ttue2cdnir8acmdph66p5829vtt6hva8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoyD27xKAtl77ghaDrVA8qspm3qdH5u4I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637209657376-ttue2cdnir8acmdph66p5829vtt6hva8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
