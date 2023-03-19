@@ -36,12 +36,15 @@ public class CustomList extends ArrayAdapter<User> {
 
         User user = users.get(position);
 
-        TextView cityName = view.findViewById(R.id.city_text);
-        TextView provinceName = view.findViewById(R.id.province_text);
-        TextView phoneNumber = view.findViewById(R.id.phone_number_text);
+        
+        TextView image = view.findViewById(R.id.leader_image);
+        TextView Name = view.findViewById(R.id.name);
+        TextView score = view.findViewById(R.id.score);
+        TextView phoneNumber = view.findViewById(R.id.index);
 
-        cityName.setText(user.getUsername());
-        provinceName.setText(user.getEmail());
+        image.setText(user.getUsername());
+        //score.setText(user.getEmail());
+        Name.setText(user.getEmail());
         phoneNumber.setText(user.getPhone());
         return view;
 
