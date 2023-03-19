@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     com.example.snailscurlup.listycity.CustomList customList;
 
     final String TAG = "Sample";
-    Button addAccountButton;
-    Button checkAccountButton;
+    Button cumulativeButton;
+    Button TopQrButton;
 
     FirebaseFirestore db;
 
@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        addAccountButton = findViewById(R.id.buttonQRList);   //button
-        checkAccountButton = findViewById(R.id.buttonUserList);
+        cumulativeButton = findViewById(R.id.buttonUserList);   //button
+        TopQrButton = findViewById(R.id.buttonQRList);
 
         userList = findViewById(R.id.user_list);
         userDataList = new ArrayList<>();
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        addAccountButton.setOnClickListener(new View.OnClickListener() {
+        cumulativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Query User_leaderboard = db.collection("Users").orderBy("Total Score", Query.Direction.DESCENDING).limit(5);
@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
                         for (QueryDocumentSnapshot doc : value) {
                             Log.d(TAG, String.valueOf(doc.getData().get("Email")));
-                            String city = doc.getId();
-                            String province = (String) doc.getData().get("Email");
+                            String userName = doc.getId();
+                            String Score = (String) doc.getData().get("Total Score");
                             String phone = (String) doc.getData().get("PhoneNumber");
-                            userDataList.add(new User(city, province, phone));
+                            userDataList.add(new User(userName, Score, phone));
                         }
                         userAdapter.notifyDataSetChanged();
                     }
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        checkAccountButton.setOnClickListener(new View.OnClickListener() {
+        TopQrButton.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
                   Query QR_leaderboard = db.collection("QR").orderBy("score", Query.Direction.DESCENDING).limit(5);

@@ -14,18 +14,22 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/buttonUserList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cumulative"
+            android:layout_weight="1"
+            android:textColor="#000000"></Button>
+
+        <Button
             android:id="@+id/buttonQRList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Top QR"
+            android:layout_weight="1"
             android:textColor="#000000"></Button>
 
-        <Button
-            android:id="@+id/buttonUserList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:text="Cumulative"></Button>
+
 
     </LinearLayout>
 
