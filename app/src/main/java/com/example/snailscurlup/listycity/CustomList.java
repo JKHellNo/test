@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,15 +38,15 @@ public class CustomList extends ArrayAdapter<User> {
         User user = users.get(position);
 
 
-        TextView image = view.findViewById(R.id.leader_image);
+        //ImageView image = view.findViewById(R.id.leader_image);
         TextView Name = view.findViewById(R.id.leader_name);
         TextView score = view.findViewById(R.id.leader_score);
         TextView phoneNumber = view.findViewById(R.id.leader_index);
 
 
-        image.setText(user.getUsername());
-        //score.setText(user.getEmail());
-        Name.setText(user.getEmail());
+        //image.setImageIcon(user.getUsername());
+        Name.setText(user.getUsername());
+        score.setText(user.getEmail());
         phoneNumber.setText(user.getPhone());
         return view;
 
