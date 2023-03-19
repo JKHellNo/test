@@ -36,8 +36,8 @@ public class CustomList extends ArrayAdapter<User> {
 
         User user = users.get(position);
 
-        TextView cityName = view.findViewById(R.id.city_text);
-        TextView provinceName = view.findViewById(R.id.province_text);
+        TextView cityName = view.findViewById(R.id.leader_image);
+        TextView provinceName = view.findViewById(R.id.leader_index);
         TextView phoneNumber = view.findViewById(R.id.phone_number_text);
 
         cityName.setText(user.getUsername());
