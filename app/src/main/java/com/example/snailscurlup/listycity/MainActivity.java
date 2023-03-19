@@ -1,6 +1,5 @@
 package com.example.snailscurlup.listycity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,11 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.AggregateQuerySnapshot;
@@ -22,11 +18,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,12 +68,26 @@ public class MainActivity extends AppCompatActivity {
         addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String something="1";
+                Query User_leaderboard = db.collection("Users").orderBy("Total Score", Query.Direction.DESCENDING).limit(5);
+                User_leaderboard.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        userDataList.clear();
+
+                        for (QueryDocumentSnapshot doc : value) {
+                            Log.d(TAG, String.valueOf(doc.getData().get("Email")));
+                            String city = doc.getId();
+                            String province = (String) doc.getData().get("Email");
+                            String phone = (String) doc.getData().get("PhoneNumber");
+                            userDataList.add(new User(city, province, phone));
+                        }
+                        userAdapter.notifyDataSetChanged();
+                    }
+                });
 
 
             }
         });
-
 
 
         collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -99,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
         //checks how many QR codes they own
         CollectionReference QRListReference = db.collection("Users").document(random_user).collection("QRList");
+
+
 
         checkAccountButton.setOnClickListener(new View.OnClickListener() {
               @Override
