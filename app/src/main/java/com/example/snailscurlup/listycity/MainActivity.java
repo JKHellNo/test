@@ -38,10 +38,6 @@ public class MainActivity extends AppCompatActivity {
     Button checkAccountButton;
 
     FirebaseFirestore db;
-    private DatabaseReference mDatabase;
-
-
-    String random_user ="1";
 
 
     @Override
@@ -52,18 +48,12 @@ public class MainActivity extends AppCompatActivity {
         addAccountButton = findViewById(R.id.buttonQRList);   //button
         checkAccountButton = findViewById(R.id.buttonUserList);
 
-
-
         userList = findViewById(R.id.user_list);
         userDataList = new ArrayList<>();
         userAdapter = new com.example.snailscurlup.listycity.CustomList(this, userDataList);
         userList.setAdapter(userAdapter);
 
-
         db = FirebaseFirestore.getInstance();
-
-        CollectionReference collectionReference = db.collection("Users");
-
 
         addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,51 +79,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                userDataList.clear();
-
-                for (QueryDocumentSnapshot doc : value) {
-                    Log.d(TAG, String.valueOf(doc.getData().get("Email")));
-                    String city = doc.getId();
-                    String province = (String) doc.getData().get("Email");
-                    String phone = (String) doc.getData().get("PhoneNumber");
-                    userDataList.add(new User(city, province, phone));
-                }
-                userAdapter.notifyDataSetChanged();
-            }
-        });
-
-
-        //checks how many QR codes they own
-        CollectionReference QRListReference = db.collection("Users").document(random_user).collection("QRList");
-
-
-
         checkAccountButton.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  //TAKE THIS QUERY WITHOUT THE ONCLICK
-                  AggregateQuery countQuery = QRListReference.count();   //Reference needs to be set
-                  countQuery.get(AggregateSource.SERVER).addOnCompleteListener(task -> {
-                      if (task.isSuccessful()) {
-                          AggregateQuerySnapshot snapshot = task.getResult();
-                          int result= (int) snapshot.getCount() -1;
-                          Log.d(TAG, "Count: " + result);
-                      } else {
-                          Log.d(TAG, "Count failed: ", task.getException());
+                  Query QR_leaderboard = db.collection("QR").orderBy("score", Query.Direction.DESCENDING).limit(5);
+                  QR_leaderboard.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                      @Override
+                      public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                          userDataList.clear();
+
+                          for (QueryDocumentSnapshot doc : value) {
+                              Log.d(TAG, String.valueOf(doc.getData().get("Email")));
+                              String city = doc.getId();
+                              String province = (String) doc.getData().get("Email");
+                              String phone = (String) doc.getData().get("PhoneNumber");
+                              userDataList.add(new User(city, province, phone));
+                          }
+                          userAdapter.notifyDataSetChanged();
                       }
                   });
-                  //TO HERE
               }
           }
 
 
         );
-
-
 
     }
 }
