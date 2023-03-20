@@ -46,8 +46,8 @@ public class CustomList extends ArrayAdapter<User> {
 
         //image.setImageIcon(user.getUsername());
         Name.setText(user.getUsername());
-        score.setText(user.getEmail());
-        phoneNumber.setText(user.getPhone());
+        score.setText("Score: "+user.getEmail());
+        phoneNumber.setText(Integer. toString(position));
         return view;
 
     }

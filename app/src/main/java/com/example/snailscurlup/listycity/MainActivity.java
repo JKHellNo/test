@@ -58,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
         cumulativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Query User_leaderboard = db.collection("Users").orderBy("Total Score", Query.Direction.DESCENDING).limit(5);
+                Query User_leaderboard = db.collection("Users").orderBy("Total Score", Query.Direction.DESCENDING);
                 User_leaderboard.addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         userDataList.clear();
 
                         for (QueryDocumentSnapshot doc : value) {
-                            Log.d(TAG, String.valueOf(doc.getData().get("Email")));
+                            //Log.d(TAG, String.valueOf(doc.getData().get("Email")));
                             String userName = doc.getId();
                             String Score = (String) doc.getData().get("Total Score");
                             String phone = (String) doc.getData().get("PhoneNumber");
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                           userDataList.clear();
 
                           for (QueryDocumentSnapshot doc : value) {
-                              Log.d(TAG, String.valueOf(doc.getData().get("Email")));
+                              //Log.d(TAG, String.valueOf(doc.getData().get("Email")));
                               String city = doc.getId();
                               String province = (String) doc.getData().get("Email");
                               String phone = (String) doc.getData().get("PhoneNumber");
