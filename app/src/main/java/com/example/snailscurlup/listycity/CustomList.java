@@ -37,7 +37,6 @@ public class CustomList extends ArrayAdapter<User> {
 
         User user = users.get(position);
 
-
         //ImageView image = view.findViewById(R.id.leader_image);
         TextView Name = view.findViewById(R.id.leader_name);
         TextView score = view.findViewById(R.id.leader_score);

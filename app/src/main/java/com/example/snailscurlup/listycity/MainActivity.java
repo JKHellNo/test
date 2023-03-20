@@ -30,13 +30,8 @@ public class MainActivity extends AppCompatActivity {
     ListView userList;
     ArrayAdapter<User> userAdapter;
     ArrayList<User> userDataList;
-
-    com.example.snailscurlup.listycity.CustomList customList;
-
-    final String TAG = "Sample";
     Button cumulativeButton;
     Button TopQrButton;
-
     FirebaseFirestore db;
 
 
@@ -74,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
                         userAdapter.notifyDataSetChanged();
                     }
                 });
-
-
             }
         });
 
@@ -87,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                       @Override
                       public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                           userDataList.clear();
-
                           for (QueryDocumentSnapshot doc : value) {
                               //Log.d(TAG, String.valueOf(doc.getData().get("Email")));
                               String city = doc.getId();
@@ -100,9 +92,11 @@ public class MainActivity extends AppCompatActivity {
                   });
               }
           }
-
-
         );
+
+
+
+
 
     }
 }
