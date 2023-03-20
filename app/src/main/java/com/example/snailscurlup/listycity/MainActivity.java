@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                           for (QueryDocumentSnapshot doc : value) {
                               //Log.d(TAG, String.valueOf(doc.getData().get("Email")));
                               String city = doc.getId();
-                              String province = (String) doc.getData().get("Email");
+                              String province = (String) doc.getData().get("score");
                               String phone = (String) doc.getData().get("PhoneNumber");
                               userDataList.add(new User(city, province, phone));
                           }

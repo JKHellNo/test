@@ -41,13 +41,13 @@ public class CustomList extends ArrayAdapter<User> {
         //ImageView image = view.findViewById(R.id.leader_image);
         TextView Name = view.findViewById(R.id.leader_name);
         TextView score = view.findViewById(R.id.leader_score);
-        TextView phoneNumber = view.findViewById(R.id.leader_index);
+        TextView leaderIndex = view.findViewById(R.id.leader_index);
 
 
         //image.setImageIcon(user.getUsername());
         Name.setText(user.getUsername());
         score.setText("Score: "+user.getEmail());
-        phoneNumber.setText(Integer. toString(position));
+        leaderIndex.setText(Integer.toString(position+1));
         return view;
 
     }
