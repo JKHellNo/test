@@ -3,6 +3,7 @@ package com.example.snailscurlup.listycity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,17 +51,34 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        Query User_leaderboard = db.collection("Users").orderBy("Total Score", Query.Direction.DESCENDING);
+        Query QR_leaderboard = db.collection("QR").orderBy("score", Query.Direction.DESCENDING);
+
+        cumulativeButton.setBackgroundColor(Color.YELLOW);
+        TopQrButton.setBackgroundColor(Color.CYAN);
+        User_leaderboard.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                userDataList.clear();
+                for (QueryDocumentSnapshot doc : value) {
+                    String userName = doc.getId();
+                    String Score = (String) doc.getData().get("Total Score");
+                    String phone = (String) doc.getData().get("PhoneNumber");
+                    userDataList.add(new User(userName, Score, phone));
+                }
+                userAdapter.notifyDataSetChanged();
+            }
+        });
         cumulativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Query User_leaderboard = db.collection("Users").orderBy("Total Score", Query.Direction.DESCENDING);
+                cumulativeButton.setBackgroundColor(Color.YELLOW);
+                TopQrButton.setBackgroundColor(Color.CYAN);
                 User_leaderboard.addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         userDataList.clear();
-
                         for (QueryDocumentSnapshot doc : value) {
-                            //Log.d(TAG, String.valueOf(doc.getData().get("Email")));
                             String userName = doc.getId();
                             String Score = (String) doc.getData().get("Total Score");
                             String phone = (String) doc.getData().get("PhoneNumber");
@@ -75,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
         TopQrButton.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  Query QR_leaderboard = db.collection("QR").orderBy("score", Query.Direction.DESCENDING).limit(5);
+                  TopQrButton.setBackgroundColor(Color.YELLOW);
+                  cumulativeButton.setBackgroundColor(Color.CYAN);
                   QR_leaderboard.addSnapshotListener(new EventListener<QuerySnapshot>() {
                       @Override
                       public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                           userDataList.clear();
                           for (QueryDocumentSnapshot doc : value) {
-                              //Log.d(TAG, String.valueOf(doc.getData().get("Email")));
                               String city = doc.getId();
                               String province = (String) doc.getData().get("score");
                               String phone = (String) doc.getData().get("PhoneNumber");
